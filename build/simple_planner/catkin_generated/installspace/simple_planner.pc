@@ -1,0 +1,8 @@
+prefix=/home/lattinone/SimplePlanner/install
+
+Name: simple_planner
+Description: Description of simple_planner
+Version: 0.0.0
+Cflags: 
+Libs: -L${prefix}/lib 
+Requires: 

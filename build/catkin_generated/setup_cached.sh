@@ -7,7 +7,4 @@
 # new environment variables
 
 # modified environment variables
-export CMAKE_PREFIX_PATH="/home/lattinone/SimplePlanner/devel:$CMAKE_PREFIX_PATH"
 export PWD='/home/lattinone/SimplePlanner/build'
-export ROSLISP_PACKAGE_DIRECTORIES='/home/lattinone/SimplePlanner/devel/share/common-lisp'
-export ROS_PACKAGE_PATH="/home/lattinone/SimplePlanner/src:$ROS_PACKAGE_PATH"
