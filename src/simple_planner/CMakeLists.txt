@@ -140,6 +140,11 @@ include_directories(
 ## The recommended prefix ensures that target names across packages don't collide
 # add_executable(${PROJECT_NAME}_node src/simple_planner_node.cpp)
 
+## Executable for occupancy grid → grid map conversion
+add_executable(occ_to_gridmap src/occ_to_gridmap.cpp)
+target_link_libraries(occ_to_gridmap ${catkin_LIBRARIES})
+add_dependencies(occ_to_gridmap ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
+
 ## Rename C++ executable without prefix
 ## The above recommended prefix causes long target names, the following renames the
 ## target back to the shorter version for ease of user use

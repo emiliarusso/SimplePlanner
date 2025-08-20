@@ -285,6 +285,19 @@ gtest/fast:
 .PHONY : gtest/fast
 
 #=============================================================================
+# Target rules for targets named occ_to_gridmap
+
+# Build rule for target.
+occ_to_gridmap: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 occ_to_gridmap
+.PHONY : occ_to_gridmap
+
+# fast build rule for target.
+occ_to_gridmap/fast:
+	$(MAKE) -f simple_planner/CMakeFiles/occ_to_gridmap.dir/build.make simple_planner/CMakeFiles/occ_to_gridmap.dir/build
+.PHONY : occ_to_gridmap/fast
+
+#=============================================================================
 # Target rules for targets named visualization_msgs_generate_messages_nodejs
 
 # Build rule for target.
@@ -1216,6 +1229,7 @@ help:
 	@echo "... gmock"
 	@echo "... gtest_main"
 	@echo "... gtest"
+	@echo "... occ_to_gridmap"
 	@echo "... visualization_msgs_generate_messages_nodejs"
 	@echo "... visualization_msgs_generate_messages_lisp"
 	@echo "... tf2_msgs_generate_messages_py"
