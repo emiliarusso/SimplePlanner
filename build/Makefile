@@ -1039,6 +1039,19 @@ actionlib_msgs_generate_messages_lisp/fast:
 .PHONY : actionlib_msgs_generate_messages_lisp/fast
 
 #=============================================================================
+# Target rules for targets named simple_planner_core
+
+# Build rule for target.
+simple_planner_core: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 simple_planner_core
+.PHONY : simple_planner_core
+
+# fast build rule for target.
+simple_planner_core/fast:
+	$(MAKE) -f simple_planner/CMakeFiles/simple_planner_core.dir/build.make simple_planner/CMakeFiles/simple_planner_core.dir/build
+.PHONY : simple_planner_core/fast
+
+#=============================================================================
 # Target rules for targets named nav_msgs_generate_messages_lisp
 
 # Build rule for target.
@@ -1287,6 +1300,7 @@ help:
 	@echo "... actionlib_msgs_generate_messages_nodejs"
 	@echo "... std_msgs_generate_messages_eus"
 	@echo "... actionlib_msgs_generate_messages_lisp"
+	@echo "... simple_planner_core"
 	@echo "... nav_msgs_generate_messages_lisp"
 	@echo "... topic_tools_generate_messages_lisp"
 	@echo "... actionlib_msgs_generate_messages_cpp"

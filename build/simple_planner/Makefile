@@ -1038,6 +1038,21 @@ actionlib_msgs_generate_messages_lisp/fast:
 .PHONY : actionlib_msgs_generate_messages_lisp/fast
 
 # Convenience name for target.
+simple_planner/CMakeFiles/simple_planner_core.dir/rule:
+	cd /home/lattinone/SimplePlanner/build && $(MAKE) -f CMakeFiles/Makefile2 simple_planner/CMakeFiles/simple_planner_core.dir/rule
+.PHONY : simple_planner/CMakeFiles/simple_planner_core.dir/rule
+
+# Convenience name for target.
+simple_planner_core: simple_planner/CMakeFiles/simple_planner_core.dir/rule
+
+.PHONY : simple_planner_core
+
+# fast build rule for target.
+simple_planner_core/fast:
+	cd /home/lattinone/SimplePlanner/build && $(MAKE) -f simple_planner/CMakeFiles/simple_planner_core.dir/build.make simple_planner/CMakeFiles/simple_planner_core.dir/build
+.PHONY : simple_planner_core/fast
+
+# Convenience name for target.
 simple_planner/CMakeFiles/nav_msgs_generate_messages_lisp.dir/rule:
 	cd /home/lattinone/SimplePlanner/build && $(MAKE) -f CMakeFiles/Makefile2 simple_planner/CMakeFiles/nav_msgs_generate_messages_lisp.dir/rule
 .PHONY : simple_planner/CMakeFiles/nav_msgs_generate_messages_lisp.dir/rule
@@ -1232,6 +1247,33 @@ actionlib_generate_messages_nodejs/fast:
 	cd /home/lattinone/SimplePlanner/build && $(MAKE) -f simple_planner/CMakeFiles/actionlib_generate_messages_nodejs.dir/build.make simple_planner/CMakeFiles/actionlib_generate_messages_nodejs.dir/build
 .PHONY : actionlib_generate_messages_nodejs/fast
 
+src/costmap.o: src/costmap.cpp.o
+
+.PHONY : src/costmap.o
+
+# target to build an object file
+src/costmap.cpp.o:
+	cd /home/lattinone/SimplePlanner/build && $(MAKE) -f simple_planner/CMakeFiles/simple_planner_core.dir/build.make simple_planner/CMakeFiles/simple_planner_core.dir/src/costmap.cpp.o
+.PHONY : src/costmap.cpp.o
+
+src/costmap.i: src/costmap.cpp.i
+
+.PHONY : src/costmap.i
+
+# target to preprocess a source file
+src/costmap.cpp.i:
+	cd /home/lattinone/SimplePlanner/build && $(MAKE) -f simple_planner/CMakeFiles/simple_planner_core.dir/build.make simple_planner/CMakeFiles/simple_planner_core.dir/src/costmap.cpp.i
+.PHONY : src/costmap.cpp.i
+
+src/costmap.s: src/costmap.cpp.s
+
+.PHONY : src/costmap.s
+
+# target to generate assembly for a file
+src/costmap.cpp.s:
+	cd /home/lattinone/SimplePlanner/build && $(MAKE) -f simple_planner/CMakeFiles/simple_planner_core.dir/build.make simple_planner/CMakeFiles/simple_planner_core.dir/src/costmap.cpp.s
+.PHONY : src/costmap.cpp.s
+
 src/occ_to_gridmap.o: src/occ_to_gridmap.cpp.o
 
 .PHONY : src/occ_to_gridmap.o
@@ -1330,6 +1372,7 @@ help:
 	@echo "... actionlib_msgs_generate_messages_nodejs"
 	@echo "... std_msgs_generate_messages_eus"
 	@echo "... actionlib_msgs_generate_messages_lisp"
+	@echo "... simple_planner_core"
 	@echo "... nav_msgs_generate_messages_lisp"
 	@echo "... topic_tools_generate_messages_lisp"
 	@echo "... actionlib_msgs_generate_messages_cpp"
@@ -1343,6 +1386,9 @@ help:
 	@echo "... topic_tools_generate_messages_cpp"
 	@echo "... tf_generate_messages_nodejs"
 	@echo "... actionlib_generate_messages_nodejs"
+	@echo "... src/costmap.o"
+	@echo "... src/costmap.i"
+	@echo "... src/costmap.s"
 	@echo "... src/occ_to_gridmap.o"
 	@echo "... src/occ_to_gridmap.i"
 	@echo "... src/occ_to_gridmap.s"

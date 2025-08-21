@@ -4,7 +4,7 @@ set(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_CXX
-  "/home/lattinone/SimplePlanner/src/simple_planner/src/occ_to_gridmap.cpp" "/home/lattinone/SimplePlanner/build/simple_planner/CMakeFiles/occ_to_gridmap.dir/src/occ_to_gridmap.cpp.o"
+  "/home/lattinone/SimplePlanner/src/simple_planner/src/costmap.cpp" "/home/lattinone/SimplePlanner/build/simple_planner/CMakeFiles/simple_planner_core.dir/src/costmap.cpp.o"
   )
 set(CMAKE_CXX_COMPILER_ID "GNU")
 
@@ -15,6 +15,7 @@ set(CMAKE_TARGET_DEFINITIONS_CXX
   "ROSCONSOLE_BACKEND_LOG4CXX"
   "ROS_BUILD_SHARED_LIBS=1"
   "ROS_PACKAGE_NAME=\"simple_planner\""
+  "simple_planner_core_EXPORTS"
   )
 
 # The include file search paths:

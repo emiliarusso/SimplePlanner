@@ -100,6 +100,7 @@
 /home/lattinone/SimplePlanner/build/simple_planner/CMakeFiles/actionlib_msgs_generate_messages_nodejs.dir
 /home/lattinone/SimplePlanner/build/simple_planner/CMakeFiles/std_msgs_generate_messages_eus.dir
 /home/lattinone/SimplePlanner/build/simple_planner/CMakeFiles/actionlib_msgs_generate_messages_lisp.dir
+/home/lattinone/SimplePlanner/build/simple_planner/CMakeFiles/simple_planner_core.dir
 /home/lattinone/SimplePlanner/build/simple_planner/CMakeFiles/nav_msgs_generate_messages_lisp.dir
 /home/lattinone/SimplePlanner/build/simple_planner/CMakeFiles/topic_tools_generate_messages_lisp.dir
 /home/lattinone/SimplePlanner/build/simple_planner/CMakeFiles/actionlib_msgs_generate_messages_cpp.dir

@@ -137,6 +137,7 @@ gtest/googletest/clean: gtest/googletest/CMakeFiles/gtest.dir/clean
 
 # Recursive "all" directory target.
 simple_planner/all: simple_planner/CMakeFiles/occ_to_gridmap.dir/all
+simple_planner/all: simple_planner/CMakeFiles/simple_planner_core.dir/all
 
 .PHONY : simple_planner/all
 
@@ -204,6 +205,7 @@ simple_planner/clean: simple_planner/CMakeFiles/tf_generate_messages_py.dir/clea
 simple_planner/clean: simple_planner/CMakeFiles/actionlib_msgs_generate_messages_nodejs.dir/clean
 simple_planner/clean: simple_planner/CMakeFiles/std_msgs_generate_messages_eus.dir/clean
 simple_planner/clean: simple_planner/CMakeFiles/actionlib_msgs_generate_messages_lisp.dir/clean
+simple_planner/clean: simple_planner/CMakeFiles/simple_planner_core.dir/clean
 simple_planner/clean: simple_planner/CMakeFiles/nav_msgs_generate_messages_lisp.dir/clean
 simple_planner/clean: simple_planner/CMakeFiles/topic_tools_generate_messages_lisp.dir/clean
 simple_planner/clean: simple_planner/CMakeFiles/actionlib_msgs_generate_messages_cpp.dir/clean
@@ -2098,6 +2100,33 @@ actionlib_msgs_generate_messages_lisp: simple_planner/CMakeFiles/actionlib_msgs_
 simple_planner/CMakeFiles/actionlib_msgs_generate_messages_lisp.dir/clean:
 	$(MAKE) -f simple_planner/CMakeFiles/actionlib_msgs_generate_messages_lisp.dir/build.make simple_planner/CMakeFiles/actionlib_msgs_generate_messages_lisp.dir/clean
 .PHONY : simple_planner/CMakeFiles/actionlib_msgs_generate_messages_lisp.dir/clean
+
+#=============================================================================
+# Target rules for target simple_planner/CMakeFiles/simple_planner_core.dir
+
+# All Build rule for target.
+simple_planner/CMakeFiles/simple_planner_core.dir/all:
+	$(MAKE) -f simple_planner/CMakeFiles/simple_planner_core.dir/build.make simple_planner/CMakeFiles/simple_planner_core.dir/depend
+	$(MAKE) -f simple_planner/CMakeFiles/simple_planner_core.dir/build.make simple_planner/CMakeFiles/simple_planner_core.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/lattinone/SimplePlanner/build/CMakeFiles --progress-num=11,12 "Built target simple_planner_core"
+.PHONY : simple_planner/CMakeFiles/simple_planner_core.dir/all
+
+# Build rule for subdir invocation for target.
+simple_planner/CMakeFiles/simple_planner_core.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/lattinone/SimplePlanner/build/CMakeFiles 2
+	$(MAKE) -f CMakeFiles/Makefile2 simple_planner/CMakeFiles/simple_planner_core.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/lattinone/SimplePlanner/build/CMakeFiles 0
+.PHONY : simple_planner/CMakeFiles/simple_planner_core.dir/rule
+
+# Convenience name for target.
+simple_planner_core: simple_planner/CMakeFiles/simple_planner_core.dir/rule
+
+.PHONY : simple_planner_core
+
+# clean rule for target.
+simple_planner/CMakeFiles/simple_planner_core.dir/clean:
+	$(MAKE) -f simple_planner/CMakeFiles/simple_planner_core.dir/build.make simple_planner/CMakeFiles/simple_planner_core.dir/clean
+.PHONY : simple_planner/CMakeFiles/simple_planner_core.dir/clean
 
 #=============================================================================
 # Target rules for target simple_planner/CMakeFiles/nav_msgs_generate_messages_lisp.dir
