@@ -1301,6 +1301,33 @@ src/occ_to_gridmap.cpp.s:
 	cd /home/lattinone/SimplePlanner/build && $(MAKE) -f simple_planner/CMakeFiles/occ_to_gridmap.dir/build.make simple_planner/CMakeFiles/occ_to_gridmap.dir/src/occ_to_gridmap.cpp.s
 .PHONY : src/occ_to_gridmap.cpp.s
 
+src/planner.o: src/planner.cpp.o
+
+.PHONY : src/planner.o
+
+# target to build an object file
+src/planner.cpp.o:
+	cd /home/lattinone/SimplePlanner/build && $(MAKE) -f simple_planner/CMakeFiles/simple_planner_core.dir/build.make simple_planner/CMakeFiles/simple_planner_core.dir/src/planner.cpp.o
+.PHONY : src/planner.cpp.o
+
+src/planner.i: src/planner.cpp.i
+
+.PHONY : src/planner.i
+
+# target to preprocess a source file
+src/planner.cpp.i:
+	cd /home/lattinone/SimplePlanner/build && $(MAKE) -f simple_planner/CMakeFiles/simple_planner_core.dir/build.make simple_planner/CMakeFiles/simple_planner_core.dir/src/planner.cpp.i
+.PHONY : src/planner.cpp.i
+
+src/planner.s: src/planner.cpp.s
+
+.PHONY : src/planner.s
+
+# target to generate assembly for a file
+src/planner.cpp.s:
+	cd /home/lattinone/SimplePlanner/build && $(MAKE) -f simple_planner/CMakeFiles/simple_planner_core.dir/build.make simple_planner/CMakeFiles/simple_planner_core.dir/src/planner.cpp.s
+.PHONY : src/planner.cpp.s
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -1392,6 +1419,9 @@ help:
 	@echo "... src/occ_to_gridmap.o"
 	@echo "... src/occ_to_gridmap.i"
 	@echo "... src/occ_to_gridmap.s"
+	@echo "... src/planner.o"
+	@echo "... src/planner.i"
+	@echo "... src/planner.s"
 .PHONY : help
 
 

@@ -127,6 +127,7 @@ include_directories(
 
 add_library(simple_planner_core
   src/costmap.cpp
+  src/planner.cpp
 )
 target_link_libraries(simple_planner_core ${catkin_LIBRARIES})
 
