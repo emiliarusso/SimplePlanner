@@ -136,6 +136,10 @@ add_executable(occ_to_gridmap src/occ_to_gridmap.cpp)
 target_link_libraries(occ_to_gridmap ${catkin_LIBRARIES})
 add_dependencies(occ_to_gridmap ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
 
+add_executable(simple_planner_node src/node_ros1.cpp)
+target_link_libraries(simple_planner_node simple_planner_core ${catkin_LIBRARIES})
+add_dependencies(simple_planner_node ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
+
 ## Rename C++ executable without prefix
 ## The above recommended prefix causes long target names, the following renames the
 ## target back to the shorter version for ease of user use
