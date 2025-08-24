@@ -1,0 +1,29 @@
+<launch>
+  <!-- Args for tuning -->
+  <arg name="use_tf_start"        default="false"/>
+  <arg name="world_frame"         default="map"/>
+  <arg name="base_frame"          default="base_link"/>
+  <arg name="alpha_clearance"     default="3.0"/>
+  <arg name="obstacle_threshold"  default="55"/>
+  <arg name="smoothing_iters"     default="3"/>
+  <arg name="marker_width"        default="0.08"/>
+  <arg name="visualize"           default="true"/>
+  <arg name="viz_stride"          default="200"/>
+
+  <node pkg="simple_planner" type="simple_planner_node" name="simple_planner_node" output="screen">
+    <!-- Required Statement -->
+    <param name="use_tf_start" value="$(arg use_tf_start)"/>
+    <param name="world_frame"  value="$(arg world_frame)"/>
+    <param name="base_frame"   value="$(arg base_frame)"/>
+
+    <!-- Tuning -->
+    <param name="alpha_clearance"    value="$(arg alpha_clearance)"/>
+    <param name="obstacle_threshold" value="$(arg obstacle_threshold)"/>
+    <param name="smoothing_iters"    value="$(arg smoothing_iters)"/>
+    <param name="marker_width"       value="$(arg marker_width)"/>
+
+    <!-- Visual debug -->
+    <param name="visualize"  value="$(arg visualize)"/>
+    <param name="viz_stride" value="$(arg viz_stride)"/>
+  </node>
+</launch>
