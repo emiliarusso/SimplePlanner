@@ -1,0 +1,69 @@
+Panels:
+  - Class: rviz/Displays
+    Name: Displays
+    Property Tree Widget:
+      Expanded: true
+      Splitter Ratio: 0.5
+  - Class: rviz/Selection
+  - Class: rviz/Tool Properties
+    Expanded: false
+  - Class: rviz/Views
+    Expanded: true
+    Splitter Ratio: 0.5
+Visualization Manager:
+  Class: ""
+  Displays:
+    - Class: rviz/Map
+      Name: Map
+      Topic: /map
+      Alpha: 1
+      Color Scheme: map
+      Draw Behind: false
+      Enabled: true
+    - Class: rviz/Path
+      Name: Path
+      Topic: /simple_planner/path
+      Color: 30; 144; 255
+      Width: 0.05
+      Enabled: true
+    - Class: rviz/MarkerArray
+      Name: Start/Goal Markers
+      Marker Topic: /simple_planner/markers
+      Enabled: true
+    - Class: rviz/Marker
+      Name: Visited Cells
+      Marker Topic: /simple_planner/visited
+      Enabled: true
+    - Class: rviz/Marker
+      Name: Frontier Cells
+      Marker Topic: /simple_planner/frontier
+      Enabled: true
+    - Class: rviz/Grid
+      Name: Grid
+      Cell Size: 1
+      Color: 160; 160; 160
+      Enabled: false
+  Enabled: true
+  Global Options:
+    Background Color: 0; 0; 0
+    Fixed Frame: map
+  Tools:
+    - Class: rviz/Interact
+    - Class: rviz/MoveCamera
+    - Class: rviz/Select
+    - Class: rviz/Measure
+    - Class: rviz/SetInitialPose
+      Topic: /initialpose
+      Frame: map
+    - Class: rviz/SetGoal
+      Topic: /move_base_simple/goal
+      Frame: map
+  Views:
+    Current:
+      Class: rviz/TopDownOrtho
+      Name: Top Down
+      Angle: 0
+      Scale: 50
+      Target Frame: map
+      X: 0
+      Y: 0
