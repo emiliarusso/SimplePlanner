@@ -56,18 +56,6 @@ CMAKE_BINARY_DIR = /home/lattinone/SimplePlanner/build
 #=============================================================================
 # Targets provided globally by CMake.
 
-# Special rule for the target install/strip
-install/strip: preinstall
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing the project stripped..."
-	/usr/bin/cmake -DCMAKE_INSTALL_DO_STRIP=1 -P cmake_install.cmake
-.PHONY : install/strip
-
-# Special rule for the target install/strip
-install/strip/fast: preinstall/fast
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing the project stripped..."
-	/usr/bin/cmake -DCMAKE_INSTALL_DO_STRIP=1 -P cmake_install.cmake
-.PHONY : install/strip/fast
-
 # Special rule for the target install
 install: preinstall
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Install the project..."
@@ -111,6 +99,18 @@ test:
 test/fast: test
 
 .PHONY : test/fast
+
+# Special rule for the target install/strip
+install/strip: preinstall
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing the project stripped..."
+	/usr/bin/cmake -DCMAKE_INSTALL_DO_STRIP=1 -P cmake_install.cmake
+.PHONY : install/strip
+
+# Special rule for the target install/strip
+install/strip/fast: preinstall/fast
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing the project stripped..."
+	/usr/bin/cmake -DCMAKE_INSTALL_DO_STRIP=1 -P cmake_install.cmake
+.PHONY : install/strip/fast
 
 # Special rule for the target edit_cache
 edit_cache:
@@ -168,6 +168,21 @@ depend:
 .PHONY : depend
 
 # Convenience name for target.
+simple_planner/CMakeFiles/simple_planner_node.dir/rule:
+	cd /home/lattinone/SimplePlanner/build && $(MAKE) -f CMakeFiles/Makefile2 simple_planner/CMakeFiles/simple_planner_node.dir/rule
+.PHONY : simple_planner/CMakeFiles/simple_planner_node.dir/rule
+
+# Convenience name for target.
+simple_planner_node: simple_planner/CMakeFiles/simple_planner_node.dir/rule
+
+.PHONY : simple_planner_node
+
+# fast build rule for target.
+simple_planner_node/fast:
+	cd /home/lattinone/SimplePlanner/build && $(MAKE) -f simple_planner/CMakeFiles/simple_planner_node.dir/build.make simple_planner/CMakeFiles/simple_planner_node.dir/build
+.PHONY : simple_planner_node/fast
+
+# Convenience name for target.
 simple_planner/CMakeFiles/occ_to_gridmap.dir/rule:
 	cd /home/lattinone/SimplePlanner/build && $(MAKE) -f CMakeFiles/Makefile2 simple_planner/CMakeFiles/occ_to_gridmap.dir/rule
 .PHONY : simple_planner/CMakeFiles/occ_to_gridmap.dir/rule
@@ -183,6 +198,51 @@ occ_to_gridmap/fast:
 .PHONY : occ_to_gridmap/fast
 
 # Convenience name for target.
+simple_planner/CMakeFiles/move_base_msgs_generate_messages_py.dir/rule:
+	cd /home/lattinone/SimplePlanner/build && $(MAKE) -f CMakeFiles/Makefile2 simple_planner/CMakeFiles/move_base_msgs_generate_messages_py.dir/rule
+.PHONY : simple_planner/CMakeFiles/move_base_msgs_generate_messages_py.dir/rule
+
+# Convenience name for target.
+move_base_msgs_generate_messages_py: simple_planner/CMakeFiles/move_base_msgs_generate_messages_py.dir/rule
+
+.PHONY : move_base_msgs_generate_messages_py
+
+# fast build rule for target.
+move_base_msgs_generate_messages_py/fast:
+	cd /home/lattinone/SimplePlanner/build && $(MAKE) -f simple_planner/CMakeFiles/move_base_msgs_generate_messages_py.dir/build.make simple_planner/CMakeFiles/move_base_msgs_generate_messages_py.dir/build
+.PHONY : move_base_msgs_generate_messages_py/fast
+
+# Convenience name for target.
+simple_planner/CMakeFiles/move_base_msgs_generate_messages_lisp.dir/rule:
+	cd /home/lattinone/SimplePlanner/build && $(MAKE) -f CMakeFiles/Makefile2 simple_planner/CMakeFiles/move_base_msgs_generate_messages_lisp.dir/rule
+.PHONY : simple_planner/CMakeFiles/move_base_msgs_generate_messages_lisp.dir/rule
+
+# Convenience name for target.
+move_base_msgs_generate_messages_lisp: simple_planner/CMakeFiles/move_base_msgs_generate_messages_lisp.dir/rule
+
+.PHONY : move_base_msgs_generate_messages_lisp
+
+# fast build rule for target.
+move_base_msgs_generate_messages_lisp/fast:
+	cd /home/lattinone/SimplePlanner/build && $(MAKE) -f simple_planner/CMakeFiles/move_base_msgs_generate_messages_lisp.dir/build.make simple_planner/CMakeFiles/move_base_msgs_generate_messages_lisp.dir/build
+.PHONY : move_base_msgs_generate_messages_lisp/fast
+
+# Convenience name for target.
+simple_planner/CMakeFiles/move_base_msgs_generate_messages_eus.dir/rule:
+	cd /home/lattinone/SimplePlanner/build && $(MAKE) -f CMakeFiles/Makefile2 simple_planner/CMakeFiles/move_base_msgs_generate_messages_eus.dir/rule
+.PHONY : simple_planner/CMakeFiles/move_base_msgs_generate_messages_eus.dir/rule
+
+# Convenience name for target.
+move_base_msgs_generate_messages_eus: simple_planner/CMakeFiles/move_base_msgs_generate_messages_eus.dir/rule
+
+.PHONY : move_base_msgs_generate_messages_eus
+
+# fast build rule for target.
+move_base_msgs_generate_messages_eus/fast:
+	cd /home/lattinone/SimplePlanner/build && $(MAKE) -f simple_planner/CMakeFiles/move_base_msgs_generate_messages_eus.dir/build.make simple_planner/CMakeFiles/move_base_msgs_generate_messages_eus.dir/build
+.PHONY : move_base_msgs_generate_messages_eus/fast
+
+# Convenience name for target.
 simple_planner/CMakeFiles/visualization_msgs_generate_messages_nodejs.dir/rule:
 	cd /home/lattinone/SimplePlanner/build && $(MAKE) -f CMakeFiles/Makefile2 simple_planner/CMakeFiles/visualization_msgs_generate_messages_nodejs.dir/rule
 .PHONY : simple_planner/CMakeFiles/visualization_msgs_generate_messages_nodejs.dir/rule
@@ -196,6 +256,21 @@ visualization_msgs_generate_messages_nodejs: simple_planner/CMakeFiles/visualiza
 visualization_msgs_generate_messages_nodejs/fast:
 	cd /home/lattinone/SimplePlanner/build && $(MAKE) -f simple_planner/CMakeFiles/visualization_msgs_generate_messages_nodejs.dir/build.make simple_planner/CMakeFiles/visualization_msgs_generate_messages_nodejs.dir/build
 .PHONY : visualization_msgs_generate_messages_nodejs/fast
+
+# Convenience name for target.
+simple_planner/CMakeFiles/move_base_msgs_generate_messages_nodejs.dir/rule:
+	cd /home/lattinone/SimplePlanner/build && $(MAKE) -f CMakeFiles/Makefile2 simple_planner/CMakeFiles/move_base_msgs_generate_messages_nodejs.dir/rule
+.PHONY : simple_planner/CMakeFiles/move_base_msgs_generate_messages_nodejs.dir/rule
+
+# Convenience name for target.
+move_base_msgs_generate_messages_nodejs: simple_planner/CMakeFiles/move_base_msgs_generate_messages_nodejs.dir/rule
+
+.PHONY : move_base_msgs_generate_messages_nodejs
+
+# fast build rule for target.
+move_base_msgs_generate_messages_nodejs/fast:
+	cd /home/lattinone/SimplePlanner/build && $(MAKE) -f simple_planner/CMakeFiles/move_base_msgs_generate_messages_nodejs.dir/build.make simple_planner/CMakeFiles/move_base_msgs_generate_messages_nodejs.dir/build
+.PHONY : move_base_msgs_generate_messages_nodejs/fast
 
 # Convenience name for target.
 simple_planner/CMakeFiles/visualization_msgs_generate_messages_lisp.dir/rule:
@@ -798,6 +873,21 @@ geometry_msgs_generate_messages_cpp/fast:
 .PHONY : geometry_msgs_generate_messages_cpp/fast
 
 # Convenience name for target.
+simple_planner/CMakeFiles/move_base_msgs_generate_messages_cpp.dir/rule:
+	cd /home/lattinone/SimplePlanner/build && $(MAKE) -f CMakeFiles/Makefile2 simple_planner/CMakeFiles/move_base_msgs_generate_messages_cpp.dir/rule
+.PHONY : simple_planner/CMakeFiles/move_base_msgs_generate_messages_cpp.dir/rule
+
+# Convenience name for target.
+move_base_msgs_generate_messages_cpp: simple_planner/CMakeFiles/move_base_msgs_generate_messages_cpp.dir/rule
+
+.PHONY : move_base_msgs_generate_messages_cpp
+
+# fast build rule for target.
+move_base_msgs_generate_messages_cpp/fast:
+	cd /home/lattinone/SimplePlanner/build && $(MAKE) -f simple_planner/CMakeFiles/move_base_msgs_generate_messages_cpp.dir/build.make simple_planner/CMakeFiles/move_base_msgs_generate_messages_cpp.dir/build
+.PHONY : move_base_msgs_generate_messages_cpp/fast
+
+# Convenience name for target.
 simple_planner/CMakeFiles/geometry_msgs_generate_messages_nodejs.dir/rule:
 	cd /home/lattinone/SimplePlanner/build && $(MAKE) -f CMakeFiles/Makefile2 simple_planner/CMakeFiles/geometry_msgs_generate_messages_nodejs.dir/rule
 .PHONY : simple_planner/CMakeFiles/geometry_msgs_generate_messages_nodejs.dir/rule
@@ -1274,6 +1364,33 @@ src/costmap.cpp.s:
 	cd /home/lattinone/SimplePlanner/build && $(MAKE) -f simple_planner/CMakeFiles/simple_planner_core.dir/build.make simple_planner/CMakeFiles/simple_planner_core.dir/src/costmap.cpp.s
 .PHONY : src/costmap.cpp.s
 
+src/node_ros1.o: src/node_ros1.cpp.o
+
+.PHONY : src/node_ros1.o
+
+# target to build an object file
+src/node_ros1.cpp.o:
+	cd /home/lattinone/SimplePlanner/build && $(MAKE) -f simple_planner/CMakeFiles/simple_planner_node.dir/build.make simple_planner/CMakeFiles/simple_planner_node.dir/src/node_ros1.cpp.o
+.PHONY : src/node_ros1.cpp.o
+
+src/node_ros1.i: src/node_ros1.cpp.i
+
+.PHONY : src/node_ros1.i
+
+# target to preprocess a source file
+src/node_ros1.cpp.i:
+	cd /home/lattinone/SimplePlanner/build && $(MAKE) -f simple_planner/CMakeFiles/simple_planner_node.dir/build.make simple_planner/CMakeFiles/simple_planner_node.dir/src/node_ros1.cpp.i
+.PHONY : src/node_ros1.cpp.i
+
+src/node_ros1.s: src/node_ros1.cpp.s
+
+.PHONY : src/node_ros1.s
+
+# target to generate assembly for a file
+src/node_ros1.cpp.s:
+	cd /home/lattinone/SimplePlanner/build && $(MAKE) -f simple_planner/CMakeFiles/simple_planner_node.dir/build.make simple_planner/CMakeFiles/simple_planner_node.dir/src/node_ros1.cpp.s
+.PHONY : src/node_ros1.cpp.s
+
 src/occ_to_gridmap.o: src/occ_to_gridmap.cpp.o
 
 .PHONY : src/occ_to_gridmap.o
@@ -1334,13 +1451,18 @@ help:
 	@echo "... all (the default if no target is provided)"
 	@echo "... clean"
 	@echo "... depend"
-	@echo "... install/strip"
 	@echo "... install"
 	@echo "... list_install_components"
 	@echo "... rebuild_cache"
 	@echo "... test"
+	@echo "... simple_planner_node"
 	@echo "... occ_to_gridmap"
+	@echo "... install/strip"
+	@echo "... move_base_msgs_generate_messages_py"
+	@echo "... move_base_msgs_generate_messages_lisp"
+	@echo "... move_base_msgs_generate_messages_eus"
 	@echo "... visualization_msgs_generate_messages_nodejs"
+	@echo "... move_base_msgs_generate_messages_nodejs"
 	@echo "... visualization_msgs_generate_messages_lisp"
 	@echo "... tf2_msgs_generate_messages_py"
 	@echo "... tf2_msgs_generate_messages_nodejs"
@@ -1382,6 +1504,7 @@ help:
 	@echo "... tf_generate_messages_cpp"
 	@echo "... rosgraph_msgs_generate_messages_py"
 	@echo "... geometry_msgs_generate_messages_cpp"
+	@echo "... move_base_msgs_generate_messages_cpp"
 	@echo "... geometry_msgs_generate_messages_nodejs"
 	@echo "... roscpp_generate_messages_lisp"
 	@echo "... actionlib_generate_messages_lisp"
@@ -1416,6 +1539,9 @@ help:
 	@echo "... src/costmap.o"
 	@echo "... src/costmap.i"
 	@echo "... src/costmap.s"
+	@echo "... src/node_ros1.o"
+	@echo "... src/node_ros1.i"
+	@echo "... src/node_ros1.s"
 	@echo "... src/occ_to_gridmap.o"
 	@echo "... src/occ_to_gridmap.i"
 	@echo "... src/occ_to_gridmap.s"
