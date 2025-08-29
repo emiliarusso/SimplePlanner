@@ -17,7 +17,7 @@
 </p>
 
 <p align="center">
-  <img src="assets/demo.gif" width="600" alt="Simple Planner Path Expansion"/>
+  <img src="assets/demo.gif" width="400" alt="Simple Planner Path Expansion"/>
 </p>
 
 ## Overview
@@ -174,3 +174,24 @@ In RViz, you only need to set:
 ```
 Use this mode if your robot already broadcasts its pose in the map frame,
 or if you just want to quickly test goal-to-goal planning without setting the start manually.
+
+## Examples
+
+The planner behavior with different values of `alpha_clearance`:
+
+<p align="center">
+  <img src="assets/clearance_1.png" width="45%"/><br/>
+  <em>α = 1.0  → path close to obstacles</em>
+</p>
+<p align="center">
+  <img src="assets/clearance_5.png" width="45%"/><br/>
+  <em>α = 5.0 → smoother detour, avoids walls more clearly</em>
+</p>
+<p align="center">
+  <img src="assets/clearance_10.png" width="45%"/><br/>
+  <em>α = 10.0 → keeps larger safety margins</em>
+</p>
+<p align="center">
+  <img src="assets/clearance_20.png" width="45%"/><br/>
+  <em>α = 20.0 → hugs free space as far as possible</em>
+</p>
