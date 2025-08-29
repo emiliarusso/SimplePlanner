@@ -17,7 +17,7 @@
 </p>
 
 <p align="center">
-  <img src="assets/demo.gif" width="400" alt="Simple Planner Path Expansion"/>
+  <img src="assets/demo.gif" width="600" alt="Simple Planner Path Expansion"/>
 </p>
 
 ## Overview
@@ -102,13 +102,8 @@ Once the goal is reached, the planner reconstructs the path by backtracking thro
 The raw path is published as a `nav_msgs/Path`, containing an ordered sequence of poses in the `map` frame.
 
 To make the trajectory smoother and visually clearer, an optional **Chaikin’s corner-cutting algorithm** is applied. This iteratively refines the polyline by generating new intermediate points:
-
-$$
-P'_k \;=\; 0.75\,P_k \;+\; 0.25\,P_{k+1} 
-$$
-$$
-Q'_k \;=\; 0.25\,P_k \;+\; 0.75\,P_{k+1}
-$$
+$$ P'_k \;=\; 0.75 P_k + 0.25 P_{k+1} $$
+$$ Q'_k \;=\; 0.25 P_k + 0.75 P_{k+1} $$
 
 After a few iterations, the path resembles a smooth curve instead of a jagged polyline.
 
