@@ -9,7 +9,7 @@
     <img src="https://img.shields.io/badge/License-MIT-yellow.svg" alt="License: MIT">
   </a>
   <a href="https://www.ros.org/">
-    <img src="https://img.shields.io/badge/ROS1-Noetic%20%7C%20Melodic-blue.svg" alt="ROS">
+    <img src="https://img.shields.io/badge/ROS1-Noetic-blue.svg" alt="ROS">
   </a>
   <a href="https://isocpp.org/">
     <img src="https://img.shields.io/badge/C++-11%2B-green.svg" alt="C++">
@@ -17,7 +17,7 @@
 </p>
 
 <p align="center">
-  <img src="assets/demo.gif" width=""600" alt="Simple Planner Path Expansion"/>
+  <img src="assets/demo.gif" width="600" alt="Simple Planner Path Expansion"/>
 </p>
 
 ## Overview
@@ -104,7 +104,9 @@ The raw path is published as a `nav_msgs/Path`, containing an ordered sequence o
 To make the trajectory smoother and visually clearer, an optional **Chaikin’s corner-cutting algorithm** is applied. This iteratively refines the polyline by generating new intermediate points:
 
 $$
-P'_k \;=\; 0.75\,P_k \;+\; 0.25\,P_{k+1} \\
+P'_k \;=\; 0.75\,P_k \;+\; 0.25\,P_{k+1} 
+$$
+$$
 Q'_k \;=\; 0.25\,P_k \;+\; 0.75\,P_{k+1}
 $$
 
@@ -140,3 +142,35 @@ SimplePlanner/
 │ └── run_with_tf.sh # helper script (static TF start pose)
 ├── README.md # project documentation
 ```
+
+## Run & Test
+The project provides two helper scripts that start all the required nodes
+(roscore, map server, planner node, and RViz) automatically.  
+Both scripts assume you already compiled the workspace and sourced the setup:
+
+```bash
+git clone https://github.com/emiliarusso/SimplePlanner.git
+cd ~/SimplePlanner
+source devel/setup.bash
+```
+### Option 1: Manual start in RViz
+This option disables TF for the start pose.
+In RViz, you must manually set:
+- 2D Pose Estimate → start position
+- 2D Nav Goal → goal position
+```bash
+./src/run_simple_planner.sh
+```
+Use this mode if your robot does not publish a map → base_link transform,
+or if you want to experiment with arbitrary start/goal poses.
+
+### Option 2: Run with TF
+This option enables TF-based start.
+The planner takes the robot’s current pose directly from the TF transform map → base_link.
+In RViz, you only need to set:
+- 2D Nav Goal → goal position
+```bash
+./src/run_with_tf.sh
+```
+Use this mode if your robot already broadcasts its pose in the map frame,
+or if you just want to quickly test goal-to-goal planning without setting the start manually.
