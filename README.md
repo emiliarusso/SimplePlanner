@@ -104,8 +104,7 @@ The raw path is published as a `nav_msgs/Path`, containing an ordered sequence o
 To make the trajectory smoother and visually clearer, an optional **Chaikin’s corner-cutting algorithm** is applied. This iteratively refines the polyline by generating new intermediate points:
 
 ```math
-P'_k = 0.75 P_k + 0.25 P_{k+1}
-\\
+P'_k = 0.75 P_k + 0.25 P_{k+1}, 
 Q'_k = 0.25 P_k + 0.75 P_{k+1}
 ```
 
