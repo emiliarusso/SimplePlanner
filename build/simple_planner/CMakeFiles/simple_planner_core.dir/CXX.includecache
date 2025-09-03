@@ -6,6 +6,14 @@
 
 #IncludeRegexTransform: 
 
+/home/lattinone/SimplePlanner/src/simple_planner/include/simple_planner/costmap.hpp
+vector
+-
+cstdint
+-
+simple_planner/grid_utils.hpp
+/home/lattinone/SimplePlanner/src/simple_planner/include/simple_planner/simple_planner/grid_utils.hpp
+
 /home/lattinone/SimplePlanner/src/simple_planner/include/simple_planner/grid_utils.hpp
 cmath
 -
@@ -23,6 +31,14 @@ cstdint
 -
 simple_planner/grid_utils.hpp
 /home/lattinone/SimplePlanner/src/simple_planner/include/simple_planner/simple_planner/grid_utils.hpp
+
+/home/lattinone/SimplePlanner/src/simple_planner/src/costmap.cpp
+simple_planner/costmap.hpp
+/home/lattinone/SimplePlanner/src/simple_planner/src/simple_planner/costmap.hpp
+queue
+-
+limits
+-
 
 /home/lattinone/SimplePlanner/src/simple_planner/src/planner.cpp
 simple_planner/planner.hpp
