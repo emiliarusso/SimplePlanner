@@ -4,13 +4,14 @@
 struct GridGeom {
   int rows{0}, cols{0}; // grid size (rows x cols)
   double resolution{0.05};  // meters per cell
-  double origin_x{0.0}, origin_y{0.0}; // world of cell (0,0)
+  double origin_x{0.0}, origin_y{0.0}; // world coordinate of cell (0,0)
 };
 
-// convert world coordinates to grid coordinates
+// convert world coordinates to grid indices
 // wx,wy: world coordinates
 // r,c: grid coordinates (indices)
 inline bool worldToGrid(double wx, double wy, int& r, int& c, const GridGeom& g){
+  // get which cell (r,c) the world coords (wx,wy) fall into
   int gc = static_cast<int>(std::floor((wx - g.origin_x) / g.resolution));
   int gr = static_cast<int>(std::floor((wy - g.origin_y) / g.resolution));
   if(gr < 0 || gr >= g.rows || gc < 0 || gc >= g.cols) return false;
