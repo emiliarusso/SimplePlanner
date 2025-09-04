@@ -13,7 +13,6 @@
 #include <tf2_ros/transform_listener.h>
 #include <geometry_msgs/TransformStamped.h>
 #include <move_base_msgs/MoveBaseActionGoal.h>
-#include "simple_planner/grid_utils.hpp"
 
 #include <vector>
 #include <queue>
@@ -27,8 +26,8 @@ public:
   SimplePlanner(ros::NodeHandle& nh): nh_(nh)
   {
     // Params
-    nh_.param("alpha_clearance", alpha_clearance_, 0.0);      // peso distanza ostacoli
-    nh_.param("obstacle_threshold", obstacle_thresh_, 50);    // soglia OccupancyGrid (0..100)
+    nh_.param("alpha_clearance", alpha_clearance_, 0.0);      // weight for clearance cost
+    nh_.param("obstacle_threshold", obstacle_thresh_, 50);    // threshold for OccupancyGrid (0..100)
 
     map_sub_  = nh_.subscribe("/map", 1, &SimplePlanner::mapCb, this);
     init_sub_ = nh_.subscribe("/initialpose", 1, &SimplePlanner::initialPoseCb, this);
@@ -112,7 +111,7 @@ private:
     return y;
   }
 
-  // Build a GridGeom on the fly from current members
+  // Build a GridGeom from current map metadata
   inline GridGeom g() const {
     GridGeom gg;
     gg.rows = static_cast<int>(H_);
@@ -123,7 +122,7 @@ private:
     return gg;
   }
 
-  // Wrapper: world -> grid (keep your gx,gy order: x=col, y=row)
+  // Wrapper: world -> grid 
   inline bool worldToGrid(double wx,double wy,int& gx,int& gy) const {
     int r, c;
     if(!::worldToGrid(wx, wy, r, c, g())) return false;  // shared util (row, col)
@@ -132,7 +131,7 @@ private:
     return true;
   }
 
-  // Wrapper: grid -> world (your gx,gy -> shared (row, col))
+  // Wrapper: grid -> world 
   inline void gridToWorld(int gx,int gy,double& wx,double& wy) const {
     ::gridToWorld(gy, gx, wx, wy, g());  // note (row=gy, col=gx)
   }
@@ -152,21 +151,21 @@ private:
   void mapCb(const nav_msgs::OccupancyGrid& msg){
     map_ = msg;
 
-    // 3.0: metadata
+    // metadata
     res_      = msg.info.resolution;
     origin_x_ = msg.info.origin.position.x;
     origin_y_ = msg.info.origin.position.y;
     W_        = msg.info.width;
     H_        = msg.info.height;
 
-    // 3.1: geometry
+    // geometry
     cm_.geom.rows       = static_cast<int>(msg.info.height);
     cm_.geom.cols       = static_cast<int>(msg.info.width);
     cm_.geom.resolution = msg.info.resolution;
     cm_.geom.origin_x   = msg.info.origin.position.x;
     cm_.geom.origin_y   = msg.info.origin.position.y;
 
-    // 3.2: occupancy (true = obstacle, false = free)
+    // occupancy (true = obstacle, false = free)
     const int R = cm_.geom.rows, C = cm_.geom.cols;
     cm_.occ.assign(R*C, false);
     for(int r=0; r<R; ++r){
@@ -177,14 +176,24 @@ private:
       }
     }
 
-    // 3.3: distance field (meters) via library
+    // distance field (meters) via library
     computeObstacleDistances(cm_);
 
-    // 3.4: clearance cost cc[i] = 1/(eps + dist[i])   
+    // clearance cost cc[i] = 1/(eps + dist[i])   
     computeClearanceCost(cm_, 1.0, 1e-3); 
 
-    // 3.5: configure planner with geometry + clearance and alpha
+    // configure planner with geometry + clearance and alpha
     astar_.reset(new AStarPlanner(cm_.geom, cm_.occ, cm_.cost, alpha_clearance_));
+    astar_->setVizCallback(
+      [this](const std::vector<int>& frontier, const std::vector<int>& visited){
+        std_msgs::Header h; h.frame_id = world_frame_; h.stamp = ros::Time::now();
+        auto mF = makeCubeList(frontier, h, 100, 1.0f, 0.6f, 0.0f, 0.5f);   // orange frontier
+        auto mV = makeCubeList(visited,  h, 101, 0.121f,0.466f,0.705f,0.35f); // blue visited
+        frontier_pub_.publish(mF);
+        visited_pub_.publish(mV);
+      },
+      viz_stride_   // you already have this param
+    );
 
     // publish debug costmap
     publishCostDebugFrom(cm_); 
@@ -302,10 +311,16 @@ private:
     m.ns = "simple_planner_debug";
     m.id = id;
     m.type = visualization_msgs::Marker::CUBE_LIST;
-    m.action = visualization_msgs::Marker::ADD;
-    m.scale.x = m.scale.y = m.scale.z = std::max(0.8*res_, 0.02); // almost as big as the cell
-    m.color.r = r; m.color.g = g; m.color.b = b; m.color.a = a;
     m.pose.orientation.w = 1.0;
+    m.scale.x = m.scale.y = m.scale.z = std::max(0.8*res_, 0.02); 
+    m.color.r = r; m.color.g = g; m.color.b = b; m.color.a = a;
+
+    if(cells.empty()){
+      m.action = visualization_msgs::Marker::DELETE;
+      return m; // nothing to draw, but clears any old cubes
+    }
+
+    m.action = visualization_msgs::Marker::ADD;
     m.points.reserve(cells.size());
     for(int idx: cells){
       int x,y; fromIdx(idx,x,y);

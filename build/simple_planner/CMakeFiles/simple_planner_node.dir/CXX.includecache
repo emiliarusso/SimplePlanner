@@ -29,6 +29,8 @@ cmath
 -
 cstdint
 -
+functional
+-
 simple_planner/grid_utils.hpp
 /home/lattinone/SimplePlanner/src/simple_planner/include/simple_planner/simple_planner/grid_utils.hpp
 

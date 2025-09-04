@@ -36,6 +36,18 @@ PlanResult AStarPlanner::plan(GridIndex s, GridIndex g){
   // Open set = frontier of nodes to explore, ordered by lowest f
   std::priority_queue<Node, std::vector<Node>, Cmp> open;
 
+  std::vector<uint8_t> in_open(N, 0), in_closed(N, 0);
+  int expansions = 0;
+  auto emit = [&](bool save_only=false){
+    last_frontier_.clear(); last_visited_.clear();
+    last_frontier_.reserve(1024); last_visited_.reserve(1024);
+    for(int i=0;i<N;++i){
+      if(in_open[i])   last_frontier_.push_back(i);
+      if(in_closed[i]) last_visited_.push_back(i);
+    }
+    if(!save_only && viz_cb_ && viz_stride_>0) viz_cb_(last_frontier_, last_visited_);
+  };
+
   // Heuristic function (Euclidean distance to goal)
   auto H = [&](int r,int c){ 
     double dr = r - g.r, dc = c - g.c; 
@@ -50,6 +62,7 @@ PlanResult AStarPlanner::plan(GridIndex s, GridIndex g){
     double f = newg + H(r,c);            // f = g + h
     open.push(Node{r,c,newg,f,pr,pc});   // add to frontier
     parent[id] = (pr < 0 ? -1 : idx(pr,pc,C)); // store parent link
+    in_open[id] = 1;                     // mark as in open
   };
 
   // Initialize with the start cell
@@ -64,11 +77,21 @@ PlanResult AStarPlanner::plan(GridIndex s, GridIndex g){
 
   while(!open.empty()){
     Node cur = open.top(); open.pop();
+    int cur_id = idx(cur.r, cur.c, C);
+    if(cur.g > gscore[cur_id] + 1e-12) {
+      continue;
+    }
+    in_open[cur_id] = 0;
+    in_closed[cur_id] = 1;
+    ++expansions;
+    if(viz_stride_>0 && (expansions % viz_stride_ == 0)){
+      emit(false); // updates last_* and calls cb
+    }
 
     // Check if we reached the goal
     if(cur.r == g.r && cur.c == g.c){
       std::vector<GridIndex> rev;
-      int id = idx(cur.r, cur.c, C);
+      int id = cur_id;
       // Backtrack using parent[] to reconstruct path
       while(id != -1){ 
         int rr = id / C, cc = id % C; 
@@ -79,6 +102,7 @@ PlanResult AStarPlanner::plan(GridIndex s, GridIndex g){
       out.cells.assign(rev.rbegin(), rev.rend());
       out.cost = cur.g; 
       out.ok = true; 
+      emit(/*save_only=*/false); // final snapshot
       return out; // success
     }
 
@@ -97,5 +121,6 @@ PlanResult AStarPlanner::plan(GridIndex s, GridIndex g){
   }
 
   // If frontier is exhausted, no path exists
+  emit(/*save_only=*/false); 
   return out;
 }
