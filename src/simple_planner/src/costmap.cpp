@@ -20,7 +20,7 @@ void computeObstacleDistances(Costmap& cm){
   while(!q.empty()){
     int id=q.front(); q.pop();
     int r=id/C, c=id% C;
-    for(int k=0;k<4;++k){ 
+    for(int k=0;k<4;++k){  // for each neighbor
       int nr=r+dr[k], nc=c+dc[k];
       if(!inBounds(nr,nc,R,C)) continue; // skip out of bounds
       int nid=idx(nr,nc,C);

@@ -28,6 +28,8 @@ public:
     // Params
     nh_.param("alpha_clearance", alpha_clearance_, 0.0);      // weight for clearance cost
     nh_.param("obstacle_threshold", obstacle_thresh_, 50);    // threshold for OccupancyGrid (0..100)
+    nh_.param("smoothing_iters", smoothing_iters_, 2);   // 0 = no smoothing
+    nh_.param("marker_width", marker_width_, 0.06);      // line width in meters
 
     map_sub_  = nh_.subscribe("/map", 1, &SimplePlanner::mapCb, this);
     init_sub_ = nh_.subscribe("/initialpose", 1, &SimplePlanner::initialPoseCb, this);
@@ -35,13 +37,7 @@ public:
     goal2_sub_ = nh_.subscribe("/move_base/goal", 1, &SimplePlanner::goalMoveBaseCb, this);
 
     path_pub_ = nh_.advertise<nav_msgs::Path>("/simple_planner/path", 1, true);
-
     marker_pub_ = nh_.advertise<visualization_msgs::MarkerArray>("/simple_planner/markers", 1, true);
-
-    // Param smoothing 
-    nh_.param("smoothing_iters", smoothing_iters_, 2);   // 0 = no smoothing
-    nh_.param("marker_width", marker_width_, 0.06);      // line width in meters
-
     frontier_pub_ = nh_.advertise<visualization_msgs::Marker>("/simple_planner/frontier", 1, true);
     visited_pub_  = nh_.advertise<visualization_msgs::Marker>("/simple_planner/visited", 1, true);
     costmap_pub_  = nh_.advertise<nav_msgs::OccupancyGrid>("/simple_planner/cost_debug", 1, true);
@@ -59,7 +55,7 @@ public:
       ROS_INFO("TF start DISABLED (using /initialpose from RViz).");
     }
 
-    have_map_ = have_start_ = have_goal_ = false;
+    have_map_ = have_start_ = have_goal_ = false; // planning prerequisites
   }
 
 private:
@@ -100,7 +96,6 @@ private:
   // Params
   double alpha_clearance_;
   int obstacle_thresh_;
-
   int smoothing_iters_ = 2;
   double marker_width_ = 0.06;
 
@@ -203,6 +198,7 @@ private:
   }
 
 
+  // positions initialized in RViz directly
   void initialPoseCb(const geometry_msgs::PoseWithCovarianceStamped& m){
     start_w_ = m.pose.pose.position;
     start_yaw_ = yawFromQuat(m.pose.pose.orientation);
@@ -216,6 +212,7 @@ private:
     tryPlan();
   }
 
+  // positions from TF
   void updateStartFromTF(const ros::TimerEvent&){
     if(!use_tf_start_) return;
     try{
@@ -231,6 +228,7 @@ private:
     }
   }
 
+  // nav stack MoveBase goal
   void goalMoveBaseCb(const move_base_msgs::MoveBaseActionGoal& msg){
     goal_w_  = msg.goal.target_pose.pose.position;
     goal_yaw_ = yawFromQuat(msg.goal.target_pose.pose.orientation);
@@ -245,7 +243,7 @@ private:
       std::vector<geometry_msgs::PoseStamped> out;
       out.reserve(pts.size()*2);
       out.push_back(pts.front()); // keep endpoints
-      for(size_t i=0;i+1<pts.size();++i){
+      for(size_t i=0;i+1<pts.size();++i){ // for each consecutive pair (P,Q)
         const auto& P = pts[i].pose.position;
         const auto& Q = pts[i+1].pose.position;
         geometry_msgs::PoseStamped A = pts[i];
@@ -254,11 +252,12 @@ private:
         A.pose.position.y = 0.75*P.y + 0.25*Q.y;
         B.pose.position.x = 0.25*P.x + 0.75*Q.x;
         B.pose.position.y = 0.25*P.y + 0.75*Q.y;
+        // append points - replace sharp corner with rounded pair
         out.push_back(A);
         out.push_back(B);
       }
       out.push_back(pts.back());
-      pts.swap(out);
+      pts.swap(out); // smoothed for next iteration
     }
   }
 
@@ -276,12 +275,13 @@ private:
     m.points.reserve(path.poses.size());
     for(const auto& p : path.poses){
       geometry_msgs::Point pt;
-      pt.x = p.pose.position.x; pt.y = p.pose.position.y; pt.z = 0.02;
+      pt.x = p.pose.position.x; pt.y = p.pose.position.y; pt.z = 0.02; // lift to avoid z-fighting with floor 
       m.points.push_back(pt);
     }
     return m;
   }
 
+  // for start/goal positions
   visualization_msgs::Marker makeSphere(const geometry_msgs::Point& pw, const std_msgs::Header& h, int id, bool is_start){
     visualization_msgs::Marker m;
     m.header = h;
@@ -292,7 +292,7 @@ private:
     m.pose.position = pw;
     m.pose.position.z = 0.05;
     m.pose.orientation.w = 1.0;
-    m.scale.x = m.scale.y = m.scale.z = std::max(0.25, marker_width_*4.0);
+    m.scale.x = m.scale.y = m.scale.z = std::max(0.25, marker_width_*4.0); // diameter
     if(is_start){
       // blue
       m.color.r = 0.117; m.color.g = 0.466; m.color.b = 0.741; m.color.a = 1.0;
@@ -303,6 +303,7 @@ private:
     return m;
   }
 
+  // used for frontier and visited cells
   visualization_msgs::Marker makeCubeList(const std::vector<int>& cells,
                                         const std_msgs::Header& h,
                                         int id, float r,float g,float b,float a){
@@ -312,7 +313,7 @@ private:
     m.id = id;
     m.type = visualization_msgs::Marker::CUBE_LIST;
     m.pose.orientation.w = 1.0;
-    m.scale.x = m.scale.y = m.scale.z = std::max(0.8*res_, 0.02); 
+    m.scale.x = m.scale.y = m.scale.z = std::max(0.8*res_, 0.02);  // cube cell, side length
     m.color.r = r; m.color.g = g; m.color.b = b; m.color.a = a;
 
     if(cells.empty()){
@@ -331,6 +332,8 @@ private:
     return m;
   }
 
+  // publishes line + start/goal spheres -> update not destroy
+  // 0 = line, 1 = start sphere, 2 = goal sphere
   void publishMarkers(const nav_msgs::Path& path){
     if(path.poses.empty()) return;
     visualization_msgs::MarkerArray arr;
@@ -340,6 +343,7 @@ private:
     marker_pub_.publish(arr);
   }
 
+  // just to debug
   void publishCostDebugFrom(const Costmap& cm){
     if(costmap_pub_.getNumSubscribers()==0) return;
     nav_msgs::OccupancyGrid og = map_;
@@ -402,7 +406,7 @@ private:
       return;
     }
 
-    // Convert result.cells -> nav_msgs::Path
+    // Convert result.cells -> nav_msgs::Path (world coordinates)
     nav_msgs::Path path;
     path.header.frame_id = world_frame_;
     path.header.stamp = ros::Time::now();
@@ -412,13 +416,14 @@ private:
       gridToWorld(/*gx=*/gc.c, /*gy=*/gc.r, wx, wy);
       geometry_msgs::PoseStamped ps;
       ps.header = path.header;
+      // set xy, z=0, orientation = yaw
       ps.pose.position.x = wx;
       ps.pose.position.y = wy;
       ps.pose.orientation.w = 1.0;
       path.poses.push_back(ps);
     }
 
-    // Optional smoothing
+    // smoothing to refine line
     if(smoothing_iters_ > 0){
       smoothChaikin(path.poses, smoothing_iters_);
     }

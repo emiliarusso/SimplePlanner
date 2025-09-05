@@ -78,7 +78,7 @@ PlanResult AStarPlanner::plan(GridIndex s, GridIndex g){
   while(!open.empty()){
     Node cur = open.top(); open.pop();
     int cur_id = idx(cur.r, cur.c, C);
-    if(cur.g > gscore[cur_id] + 1e-12) {
+    if(cur.g > gscore[cur_id] + 1e-12) { // skip cells with better g
       continue;
     }
     in_open[cur_id] = 0;

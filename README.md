@@ -38,7 +38,9 @@ This map is a `nav_msgs/OccupancyGrid` where each cell can be:
 - `100` → occupied (obstacle)  
 - `-1` → unknown  
 
-The occupancy grid can be converted into a `grid_map_msgs/GridMap` through the `occ_to_gridmap` bridge node, which stores data in a layered grid structure. Regardless of representation, the map is discretized with resolution `r` (meters per cell), and all subsequent computations happen in this grid space.
+Before the map can be used for planning, these values are binarized into a simple free vs. obstacle representation.
+In practice, any cell with a value greater than or equal to a chosen obstacle threshold is marked as an obstacle. Cells with a negative value (unknown space) are also treated as obstacles, following a conservative approach that prevents the planner from sending the robot into unexplored or potentially unsafe areas. All other cells are considered free and can be traversed.
+This binarization step converts the raw occupancy grid into a clear binary map that the planner can reason about. The grid is discretized with resolution r (meters per cell), and all subsequent distance and cost computations are carried out in this discrete grid space.
 
 ### 2. Obstacle extraction & costmap generation
 Once the map is available, the planner extracts obstacles and computes a **clearance costmap**.  
