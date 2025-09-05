@@ -71,9 +71,6 @@ This ensures that paths running close to walls or obstacles become more expensiv
 
 With the costmap available, the planner runs the **A\*** search algorithm over the grid.
 
-- **Start pose:** automatically retrieved from TF (`map → base_link`) or manually set by the user through `/initialpose`.
-- **Goal pose:** provided via `/move_base_simple/goal` (a `geometry_msgs/PoseStamped`) or via `/move_base/goal` (an action message).
-
 For each candidate move from a cell $i$ to a neighbor $j$, the incremental cost is:
 
 $$
@@ -117,11 +114,10 @@ For visualization, the system publishes:
 - **Final path** → blue line (`/simple_planner/path`)
 - **Start & goal markers** → blue sphere (start), green sphere (goal)
 - **Debug markers**:
-  - `/simple_planner/frontier` → frontier cells explored during A\*
+  - `/simple_planner/frontier` → frontier cells
   - `/simple_planner/visited` → visited/expanded cells
-  - `/simple_planner/cost_debug` → clearance-weighted costmap as an `OccupancyGrid`
 
-This allows the user to follow in RViz not only the final path but also the **internal decision process** of the planner.
+This allows the user to follow in RViz not only the final path but also the look at the internal decision process of the planner.
 
 ## Project Structure
 ```
